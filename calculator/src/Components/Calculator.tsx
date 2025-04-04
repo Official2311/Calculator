@@ -30,33 +30,41 @@ export default function Calculator() {
   };
 
   return (
-    <>
-    
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-        
-      <div className="card p-4 shadow-lg text-center" style={{ width: "300px" }}>
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100 bg-dark text-white">
+      <h3 className="mb-4 fw-bold text-uppercase">mB-Calculator</h3>
+
+      <div className="card p-4 shadow-lg rounded-4" style={{ width: "320px", backgroundColor: "#1e1e1e", border: "none" }}>
         <input 
           type="text" 
           value={input} 
           readOnly 
-          className="form-control mb-3 text-left fs-6"
+          className="form-control mb-3 text-end fs-4 rounded-3 bg-secondary text-white border-0"
+          style={{ height: "50px" }}
         />
+
         <div className="row g-2">
           {["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+"].map((item) => (
             <div className="col-3" key={item}>
               <button
-                className="btn btn-outline-primary w-100 fs-5"
+                className="btn w-100 fs-4 fw-bold rounded-3"
+                style={{ 
+                  backgroundColor: ["+", "-", "*", "/", "="].includes(item) ? "#ff9500" : "#333", 
+                  color: "white",
+                  height: "60px",
+                  border: "none"
+                }}
                 onClick={() => (item === "=" ? handleCalculate() : handleClick(item))}
               >
                 {item}
               </button>
             </div>
           ))}
+
           <div className="col-12">
             <button 
               onClick={handleClear} 
-              className="btn btn-danger w-100 fs-5"
-              style={{ backgroundColor: colors[colorIndex], color: "white", transition: "background-color 5s ease",border:"none" }}
+              className="btn w-100 fs-4 fw-bold rounded-3 mt-2"
+              style={{ backgroundColor: "#ff3b30", color: "white", height: "60px", border: "none" }}
             >
               Clear
             </button>
@@ -64,6 +72,5 @@ export default function Calculator() {
         </div>
       </div>
     </div>
-    </>
   );
 }
