@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Calculator() {
   const [input, setInput] = useState("");
+  const [colorIndex, setColorIndex] = useState(0);
 
+  const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
   const handleClick = (value: string) => {
     setInput((prev) => prev + value);
   };
@@ -21,13 +30,16 @@ export default function Calculator() {
   };
 
   return (
+    <>
+    
     <div className="container d-flex justify-content-center align-items-center vh-100">
+        
       <div className="card p-4 shadow-lg text-center" style={{ width: "300px" }}>
         <input 
           type="text" 
           value={input} 
           readOnly 
-          className="form-control mb-3 text-center fs-4"
+          className="form-control mb-3 text-left fs-6"
         />
         <div className="row g-2">
           {["7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+"].map((item) => (
@@ -44,6 +56,7 @@ export default function Calculator() {
             <button 
               onClick={handleClear} 
               className="btn btn-danger w-100 fs-5"
+              style={{ backgroundColor: colors[colorIndex], color: "white", transition: "background-color 5s ease",border:"none" }}
             >
               Clear
             </button>
@@ -51,5 +64,6 @@ export default function Calculator() {
         </div>
       </div>
     </div>
+    </>
   );
 }
